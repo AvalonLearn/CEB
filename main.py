@@ -72,11 +72,14 @@ def eval_alg(alg, eval_funcs, qreps, cfg,
                 use_wandb = cfg["eval"]["use_wandb"],
                 featurizer = featurizer, alg=alg)
 
-        print("{}, {}, {}, #samples: {}, {}: mean: {}, median: {}, 99p: {}"\
+        print("{}, {}, {}, #samples: {}, {}: mean: {}, median: {}, 90p: {}, 95p: {}, 99p: {}, max: {}"\
                 .format(cfg["db"]["db_name"], samples_type, alg, len(errors),
                     efunc.__str__(), np.round(np.mean(errors),3),
                     np.round(np.median(errors),3),
-                    np.round(np.percentile(errors,99),3)))
+                    np.round(np.percentile(errors,90),3),
+                    np.round(np.percentile(errors,95),3),
+                    np.round(np.percentile(errors,99),3),
+                    np.round(np.max(errors),3)))
 
         if cfg["eval"]["use_wandb"]:
             loss_key = "Final-{}-{}-{}".format(str(efunc), samples_type,
@@ -268,4 +271,6 @@ def read_flags():
 
 if __name__ == "__main__":
     args = read_flags()
+    args.eval_fns = "qerr"
+    args.results_dir = "./test_results"
     main()

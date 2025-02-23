@@ -3,9 +3,10 @@
 ## Train on JOBLight; Eval on JOB,CEB;
 
 eval:
-  use_wandb : 1
+  use_wandb : 0
   save_test_preds : 0
   save_pdf_plans : 0
+  result_dir : "./test_results"
 
   # for parallelizing computing plan costs
   num_processes : -1
@@ -16,22 +17,22 @@ data:
     bitmap_dir: "./queries/allbitmaps/"
     query_templates: "all"
     eval_templates: "all"
-    num_samples_per_template : -1
+    num_samples_per_template : 5000
 
     # query, custom, templates
     train_test_split_kind : "query"
-    test_size : 0.0
-    val_size : 0.0
+    test_size : 0.2
+    val_size : 0.2
     # only used if split == custom
     train_tmps : null
     test_tmps : null
 
     #=1, will skip templates having regex queries
-    no_regex_templates : 0
+    no_regex_templates : 1
 
     #since 7a  is a template with a very large joingraph, we have a flag to
     #skip it to make things run faster
-    skip7a : 0
+    skip7a : 1
 
     seed : 123
     # Seed used when train_test_split_kind == template
@@ -46,7 +47,7 @@ db:
   db_host : "localhost"
   user    : "ceb"
   pwd     : "password"
-  port    : 5432
+  port    : 5434
 
 ## used for neural net featurization of queries;;
 featurizer:

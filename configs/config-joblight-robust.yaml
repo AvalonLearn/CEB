@@ -4,26 +4,27 @@
 ### uses query masking + join bitmap
 
 eval:
-  use_wandb : 1
+  use_wandb : 0
   save_test_preds : 0
   save_pdf_plans : 0
-
+  result_dir : "./test_results"
   # for parallelizing computing plan costs
   num_processes : -1
 
 data:
     query_dir: "./queries/joblight_train"
-    eval_query_dir: "./queries/job/,./queries/ceb-imdb"
+    # eval_query_dir: "./queries/job/,./queries/ceb-imdb"
+    eval_query_dir: "./queries/job/"
     #bitmap_dir: "./queries/allbitmaps-debug2/"
     bitmap_dir: "./queries/allbitmaps"
     query_templates: "all"
     eval_templates: "all"
-    num_samples_per_template : -1
+    num_samples_per_template : -1 # 5000
 
     # query, custom, templates
     train_test_split_kind : "query"
-    test_size : 0.0
-    val_size : 0.0
+    test_size : 0.2
+    val_size : 0.2
     # only used if split == custom
     train_tmps : null
     test_tmps : null
@@ -48,7 +49,7 @@ db:
   db_host : "localhost"
   user    : "ceb"
   pwd     : "password"
-  port    : 5432
+  port    : 5434
 
 ## used for neural net featurization of queries;;
 featurizer:
@@ -64,7 +65,7 @@ featurizer:
   feat_onlyseen_maxy : 1
   like_char_features : 0
   global_feat_tables : 0
-  #bitmap_dir : "./queries/allbitmaps/"
+  # bitmap_dir : "./queries/allbitmaps/"
 
   sample_bitmap : 0
   sample_bitmap_num : 1000
@@ -115,7 +116,8 @@ model:
   # important training / optimization flags
   max_epochs : 100
   eval_epoch : 2 # how often to evaluate on eval_fns during training
-  eval_fns : "qerr,ppc" # logging things during training
+  # eval_fns : "qerr,ppc" # logging things during training
+  eval_fns : "qerr"
   lr : 0.0001
   num_hidden_layers : 2
   hidden_layer_size : 128

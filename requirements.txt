@@ -1,6 +1,6 @@
-numpy
+numpy==1.26.4
 pandas
-networkx
+networkx==2.5
 sqlparse
 psycopg2-binary
 matplotlib

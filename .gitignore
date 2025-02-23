@@ -2,7 +2,11 @@ __pycache__
 queries/
 .lc_cache/
 .vscode
-job
+job/
 joblight_train/
-imdb
-imdb-unique-plans
+jobm/
+imdb/
+imdb-unique-plans/
+mscn_features/
+results/*
+wandb/*
